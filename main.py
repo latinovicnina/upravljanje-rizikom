@@ -4,39 +4,33 @@ from report_generator import generate_status_report
 def main() -> None:
     tasks = [
         {
-            "name": "Definisati problem i zahteve agenta",
+            "name": "Setup development environment",
             "status": "Done",
-            "assignee": "Jana",
+            "assignee": "Marko",
             "priority": "High",
         },
         {
-            "name": "Implementirati analizu napretka projekta",
+            "name": "Design database schema",
             "status": "Done",
-            "assignee": "Nina",
+            "assignee": "Ana",
             "priority": "High",
         },
         {
-            "name": "Implementirati identifikaciju blokatora i rizika",
+            "name": "Implement user authentication",
             "status": "Done",
-            "assignee": "Nina",
+            "assignee": "Marko",
             "priority": "High",
         },
         {
-            "name": "Implementirati generisanje status reporta",
-            "status": "In Progress",
-            "assignee": "Jana",
-            "priority": "High",
-        },
-        {
-            "name": "Testirati agenta na 3 primera",
-            "status": "To Do",
-            "assignee": "",
+            "name": "Implement payment integration",
+            "status": "Done",
+            "assignee": "Ana",
             "priority": "Medium",
         },
         {
-            "name": "Napisati README dokumentaciju",
-            "status": "To Do",
-            "assignee": "Nina",
+            "name": "Write unit tests",
+            "status": "In Progress",
+            "assignee": "Marko",
             "priority": "Medium",
         },
     ]
