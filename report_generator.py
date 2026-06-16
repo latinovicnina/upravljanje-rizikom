@@ -33,3 +33,29 @@ def analyze_progress(tasks: list[dict[str, Any]]) -> str:
         f"Nije zapoceto: {to_do}\n"
     )
     return summary
+
+    def identify_risks(tasks: list[dict[str, Any]]) -> str:
+    risks = []
+
+    overdue_to_do = [t for t in tasks if t["status"].lower() == "to do" and t["priority"].lower() == "high"]
+    if overdue_to_do:
+        risks.append(
+            f"Postoji {len(overdue_to_do)} task(ova) visokog prioriteta koji jos nisu zapoceti."
+        )
+
+    unassigned = [t for t in tasks if not t.get("assignee") or t["assignee"].lower() == "nepoznato"]
+    if unassigned:
+        risks.append(
+            f"Postoji {len(unassigned)} task(ova) bez dodeljenog zaduzenog lica."
+        )
+
+    stuck_in_progress = [t for t in tasks if t["status"].lower() == "in progress"]
+    if len(stuck_in_progress) > len(tasks) * 0.5:
+        risks.append(
+            "Veliki broj taskova je trenutno u toku, sto moze ukazivati na preopterecenost tima."
+        )
+
+    if not risks:
+        return "Nisu identifikovani znacajni rizici na osnovu trenutnog stanja taskova."
+
+    return "\n".join(f"- {r}" for r in risks)
