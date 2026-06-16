@@ -34,7 +34,7 @@ def analyze_progress(tasks: list[dict[str, Any]]) -> str:
     )
     return summary
 
-    def identify_risks(tasks: list[dict[str, Any]]) -> str:
+def identify_risks(tasks: list[dict[str, Any]]) -> str:
     risks = []
 
     overdue_to_do = [t for t in tasks if t["status"].lower() == "to do" and t["priority"].lower() == "high"]
@@ -59,3 +59,52 @@ def analyze_progress(tasks: list[dict[str, Any]]) -> str:
         return "Nisu identifikovani znacajni rizici na osnovu trenutnog stanja taskova."
 
     return "\n".join(f"- {r}" for r in risks)
+
+REPORT_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            "You are an experienced project manager assistant who writes clear, "
+            "professional status reports for stakeholders. Use only the data "
+            "provided. Be concise and practical.",
+        ),
+        (
+            "user",
+            """Generate a project status report in Markdown based on the following data.
+Include these sections:
+- Project Progress Summary
+- Identified Risks and Blockers
+- Recommendations for next steps
+
+Progress data:
+{progress}
+
+Risks data:
+{risks}
+
+Task list:
+{tasks}
+""",
+        ),
+    ]
+)
+
+
+def generate_status_report(tasks: list[dict[str, Any]]) -> str:
+    if not os.getenv("OPENAI_API_KEY"):
+        raise RuntimeError("OPENAI_API_KEY is not set. Set it in the .env file.")
+
+    progress = analyze_progress(tasks)
+    risks = identify_risks(tasks)
+    formatted_tasks = format_tasks(tasks)
+
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+    chain = REPORT_PROMPT | llm | StrOutputParser()
+
+    return chain.invoke(
+        {
+            "progress": progress,
+            "risks": risks,
+            "tasks": formatted_tasks,
+        }
+    )
