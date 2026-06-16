@@ -4,34 +4,40 @@ from report_generator import generate_status_report
 def main() -> None:
     tasks = [
         {
-            "name": "Setup development environment",
-            "status": "Done",
-            "assignee": "Marko",
+            "name": "Finalize project requirements",
+            "status": "To Do",
+            "assignee": "",
             "priority": "High",
         },
         {
-            "name": "Design database schema",
-            "status": "Done",
-            "assignee": "Ana",
-            "priority": "High",
-        },
-        {
-            "name": "Implement user authentication",
-            "status": "Done",
-            "assignee": "Marko",
-            "priority": "High",
-        },
-        {
-            "name": "Implement payment integration",
-            "status": "Done",
-            "assignee": "Ana",
-            "priority": "Medium",
-        },
-        {
-            "name": "Write unit tests",
+            "name": "Build core API endpoints",
             "status": "In Progress",
-            "assignee": "Marko",
+            "assignee": "Stefan",
+            "priority": "High",
+        },
+        {
+            "name": "Integrate third-party payment gateway",
+            "status": "To Do",
+            "assignee": "",
+            "priority": "High",
+        },
+        {
+            "name": "Set up CI/CD pipeline",
+            "status": "In Progress",
+            "assignee": "Stefan",
             "priority": "Medium",
+        },
+        {
+            "name": "Conduct security audit",
+            "status": "To Do",
+            "assignee": "",
+            "priority": "High",
+        },
+        {
+            "name": "Prepare client demo",
+            "status": "To Do",
+            "assignee": "Stefan",
+            "priority": "High",
         },
     ]
 
